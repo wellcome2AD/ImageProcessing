@@ -9,7 +9,7 @@ namespace ImageProcessing
 {
     abstract class Filters
     {
-        public Bitmap processImage(Bitmap sourceImage, BackgroundWorker worker)
+        public virtual Bitmap processImage(Bitmap sourceImage, BackgroundWorker worker)
         {
             int w = sourceImage.Width, h = sourceImage.Height;
             Bitmap resultImage = new Bitmap(w, h);

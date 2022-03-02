@@ -127,8 +127,6 @@ namespace ImageProcessing
         {
             Filters filter = new MotionBlure();
             backgroundWorker1.RunWorkerAsync(filter);
-            /*pictureBox1.Image = Filter.TestFilter.Execute(image);
-            pictureBox1.Refresh();*/
         }
 
         private void сдвигToolStripMenuItem_Click(object sender, EventArgs e)
@@ -140,6 +138,18 @@ namespace ImageProcessing
         private void серыйМирToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             Filters filter = new GreyWorld(image);
+            backgroundWorker1.RunWorkerAsync(filter);
+        }
+
+        private void автоуровниToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Filters filter = new Autolevels(image);
+            backgroundWorker1.RunWorkerAsync(filter);
+        }
+
+        private void расширениеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Filters filter = new Dilation(image);
             backgroundWorker1.RunWorkerAsync(filter);
         }
     }

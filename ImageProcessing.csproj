@@ -46,7 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Autolevels.cs" />
     <Compile Include="BlurFilter.cs" />
+    <Compile Include="Dilation.cs" />
     <Compile Include="Emboss .cs" />
     <Compile Include="Filters.cs" />
     <Compile Include="Form1.cs">
