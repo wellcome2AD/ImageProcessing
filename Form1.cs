@@ -149,7 +149,16 @@ namespace ImageProcessing
 
         private void расширениеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Filters filter = new Dilation(image);
+            //Filters filter = new Dilation(image);
+            //backgroundWorker1.RunWorkerAsync(filter);
+            Dilation filter = new Dilation(image);
+            pictureBox1.Image = filter.Execute(image);
+            pictureBox1.Refresh();
+        }
+
+        private void сужениеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Filters filter = new Erosion(image);
             backgroundWorker1.RunWorkerAsync(filter);
         }
     }
