@@ -106,7 +106,7 @@
             // 
             this.полутонаToolStripMenuItem.Name = "полутонаToolStripMenuItem";
             this.полутонаToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.полутонаToolStripMenuItem.Text = "Полутон";
+            this.полутонаToolStripMenuItem.Text = "Полутона";
             this.полутонаToolStripMenuItem.Click += new System.EventHandler(this.полутонаToolStripMenuItem_Click);
             // 
             // autocontrastToolStripMenuItem
@@ -138,7 +138,7 @@
             this.button1.TabIndex = 2;
             this.button1.Text = "Отмена";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.отменаButton_Click);
             // 
             // progressBar1
             // 
@@ -167,7 +167,6 @@
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
             this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
-            this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
             // 
             // Form1
             // 
