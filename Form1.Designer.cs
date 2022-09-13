@@ -35,12 +35,14 @@
             this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.фильтрыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.точечныеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.полутонаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.autocontrastToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.button1 = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.полутонаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.autocontrastToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.матричныеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.averageФильтрToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -83,7 +85,8 @@
             // фильтрыToolStripMenuItem
             // 
             this.фильтрыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.точечныеToolStripMenuItem});
+            this.точечныеToolStripMenuItem,
+            this.матричныеToolStripMenuItem});
             this.фильтрыToolStripMenuItem.Name = "фильтрыToolStripMenuItem";
             this.фильтрыToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.фильтрыToolStripMenuItem.Text = "Фильтры";
@@ -96,6 +99,20 @@
             this.точечныеToolStripMenuItem.Name = "точечныеToolStripMenuItem";
             this.точечныеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.точечныеToolStripMenuItem.Text = "Точечные";
+            // 
+            // полутонаToolStripMenuItem
+            // 
+            this.полутонаToolStripMenuItem.Name = "полутонаToolStripMenuItem";
+            this.полутонаToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.полутонаToolStripMenuItem.Text = "Полутон";
+            this.полутонаToolStripMenuItem.Click += new System.EventHandler(this.полутонаToolStripMenuItem_Click);
+            // 
+            // autocontrastToolStripMenuItem
+            // 
+            this.autocontrastToolStripMenuItem.Name = "autocontrastToolStripMenuItem";
+            this.autocontrastToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.autocontrastToolStripMenuItem.Text = "Autocontrast";
+            this.autocontrastToolStripMenuItem.Click += new System.EventHandler(this.autocontrastToolStripMenuItem_Click);
             // 
             // contextMenuStrip1
             // 
@@ -128,19 +145,20 @@
             this.progressBar1.Size = new System.Drawing.Size(543, 23);
             this.progressBar1.TabIndex = 3;
             // 
-            // полутонаToolStripMenuItem
+            // матричныеToolStripMenuItem
             // 
-            this.полутонаToolStripMenuItem.Name = "полутонаToolStripMenuItem";
-            this.полутонаToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.полутонаToolStripMenuItem.Text = "Полутон";
-            this.полутонаToolStripMenuItem.Click += new System.EventHandler(this.полутонаToolStripMenuItem_Click);
+            this.матричныеToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.averageФильтрToolStripMenuItem});
+            this.матричныеToolStripMenuItem.Name = "матричныеToolStripMenuItem";
+            this.матричныеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.матричныеToolStripMenuItem.Text = "Матричные";
             // 
-            // autocontrastToolStripMenuItem
+            // averageФильтрToolStripMenuItem
             // 
-            this.autocontrastToolStripMenuItem.Name = "autocontrastToolStripMenuItem";
-            this.autocontrastToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.autocontrastToolStripMenuItem.Text = "Autocontrast";
-            this.autocontrastToolStripMenuItem.Click += new System.EventHandler(this.autocontrastToolStripMenuItem_Click);
+            this.averageФильтрToolStripMenuItem.Name = "averageФильтрToolStripMenuItem";
+            this.averageФильтрToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.averageФильтрToolStripMenuItem.Text = "Average фильтр";
+            this.averageФильтрToolStripMenuItem.Click += new System.EventHandler(this.averageФильтрToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -176,6 +194,8 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.ToolStripMenuItem полутонаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem autocontrastToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem матричныеToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem averageФильтрToolStripMenuItem;
     }
 }
 

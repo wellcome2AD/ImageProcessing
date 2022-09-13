@@ -15,8 +15,9 @@ namespace ImageProcessing
             int radiusX = kernel.GetLength(0) / 2;
             int radiusY = kernel.GetLength(1) / 2;
             float resultR = 0, resultG = 0, resultB = 0;
-            
-            for(int l=-radiusY; l <= radiusY; l++)
+
+            for (int l = -radiusY; l <= radiusY; l++)
+            {
                 for (int k = -radiusX; k <= radiusX; k++)
                 {
                     int idX = Clamp(x + k, 0, sourceImage.Width - 1);
@@ -26,6 +27,7 @@ namespace ImageProcessing
                     resultG += neighborColor.G * kernel[k + radiusX, l + radiusY];
                     resultB += neighborColor.B * kernel[k + radiusX, l + radiusY];
                 }
+            }
             return Color.FromArgb(Clamp((int)resultR, 0, 255),
                                   Clamp((int)resultG, 0, 255), 
                                   Clamp((int)resultB, 0, 255));
