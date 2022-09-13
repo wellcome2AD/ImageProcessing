@@ -56,5 +56,11 @@ namespace ImageProcessing
             Filter filter = new Autocontrast(image);
             backgroundWorker1.RunWorkerAsync(filter);
         }
+
+        private void averageФильтрToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Filter filter = new Average();
+            backgroundWorker1.RunWorkerAsync(filter);
+        }
     }
 }
