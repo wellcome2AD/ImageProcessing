@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Windows.Forms;
 
 namespace ImageProcessing
@@ -21,6 +22,19 @@ namespace ImageProcessing
                 image = new Bitmap(dialog.FileName);
                 pictureBox1.Image = image;
                 pictureBox1.Refresh();
+            }
+        }
+        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.Filter = "Image files | *.png; *.jpg; *.bmp | All Files (*.*) | *.*";
+            if (image == null)
+            {
+                MessageBox.Show("Нет файла для сохранения. Для начала откройте файл.", "Ошибка");
+            }
+            else if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                image.Save(dialog.FileName);
             }
         }
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
@@ -61,6 +75,6 @@ namespace ImageProcessing
         {
             Filter filter = new Average();
             backgroundWorker1.RunWorkerAsync(filter);
-        }
+        }        
     }
 }

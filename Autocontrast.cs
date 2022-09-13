@@ -9,7 +9,6 @@ namespace ImageProcessing
 {
     class Autocontrast : Filter
     {
-        int countPixel;
         float max_b = 0, min_b = 255;
         public Autocontrast(Bitmap sourceImage)
         {
