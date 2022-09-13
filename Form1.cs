@@ -58,20 +58,42 @@ namespace ImageProcessing
         }
         private void полутонаToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Filter filter = new GrayScaleFilter();
-            backgroundWorker1.RunWorkerAsync(filter);
+            if (image != null)
+            {
+                Filter filter = new GrayScaleFilter();
+                backgroundWorker1.RunWorkerAsync(filter);
+            }
+            else
+            {
+                MessageBox.Show("Нет файла для изменения. Для начала откройте файл.", "Ошибка");
+            }
         }
         private void autocontrastToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Filter filter = new Autocontrast(image);
-            backgroundWorker1.RunWorkerAsync(filter);
+            if (image != null)
+            {
+                Filter filter = new Autocontrast(image);
+                backgroundWorker1.RunWorkerAsync(filter);
+            }
+            else
+            {
+                MessageBox.Show("Нет файла для изменения. Для начала откройте файл.", "Ошибка");
+            }
         }
 
         private void averageФильтрToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Filter filter = new Average();
-            backgroundWorker1.RunWorkerAsync(filter);
-        }        
+            if (image != null)
+            {
+                Filter filter = new Average();
+                backgroundWorker1.RunWorkerAsync(filter);
+            }
+            else
+            {
+                MessageBox.Show("Нет файла для изменения. Для начала откройте файл.", "Ошибка");
+            }
+        }
+
         private void отменаButton_Click(object sender, EventArgs e)
         {
             backgroundWorker1.CancelAsync();
