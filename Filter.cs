@@ -20,11 +20,8 @@ namespace ImageProcessing
             resultImage = postProcessing(resultImage, worker);
             return resultImage;
         }
-
         protected abstract Color calculateNewPixelColor(Bitmap sourceImage, int x, int y);
-
         protected virtual Bitmap postProcessing(Bitmap sourceImage, BackgroundWorker worker) { return sourceImage; }
-
         public int Clamp(int value, int min, int max)
         {
             if (value < min)
@@ -33,6 +30,5 @@ namespace ImageProcessing
                 return max;
             return value;
         }
-
     }
 }

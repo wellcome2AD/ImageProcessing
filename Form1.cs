@@ -50,15 +50,11 @@ namespace ImageProcessing
         {
             Filter filter = new GrayScaleFilter();
             backgroundWorker1.RunWorkerAsync(filter);
-            /*
-            Bitmap resultImage = filter.processImage(image);
-            pictureBox1.Image = resultImage;
-            pictureBox1.Refresh();
-            */
         }
         private void autocontrastToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            Filter filter = new Autocontrast(image);
+            backgroundWorker1.RunWorkerAsync(filter);
         }
     }
 }
