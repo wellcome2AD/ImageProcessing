@@ -56,10 +56,6 @@ namespace ImageProcessing
             }
             progressBar1.Value = 0;
         }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            backgroundWorker1.CancelAsync();
-        }
         private void полутонаToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Filter filter = new GrayScaleFilter();
@@ -76,5 +72,9 @@ namespace ImageProcessing
             Filter filter = new Average();
             backgroundWorker1.RunWorkerAsync(filter);
         }        
+        private void отменаButton_Click(object sender, EventArgs e)
+        {
+            backgroundWorker1.CancelAsync();
+        }
     }
 }
