@@ -2,7 +2,7 @@
 
 namespace ImageProcessing
 {
-    class MatrixFilter : Filters
+    class MatrixFilter : Filter
     {
         protected float[,] kernel = null;
         public MatrixFilter(float[,] kernel)

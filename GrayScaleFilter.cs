@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ImageProcessing
 {
-    class GrayScaleFilter : Filters
+    class GrayScaleFilter : Filter
     {
         protected override Color calculateNewPixelColor(Bitmap sourceImage, int x, int y)
         {
