@@ -225,7 +225,6 @@ namespace ImageProcessing
             if (image != null)
             {
                 int threshold = 128;
-                int value;
                 int w = image.Width, h = image.Height;
                 Bitmap resultImage = new Bitmap(w, h);
                 for (int i = 0; i < w; i++)
@@ -233,15 +232,7 @@ namespace ImageProcessing
                     for (int j = 0; j < h; j++)
                     {
                         Color sourceColor = image.GetPixel(i, j);
-                        if(sourceColor.R < threshold)
-                        {
-                            value = 0;
-                        }
-                        else
-                        {
-                            value = 255;
-                        }
-                        Color resultColor = Color.FromArgb(value, value, value);
+                        Color resultColor = binarization(sourceColor, threshold);
                         resultImage.SetPixel(i, j, resultColor);
                     }
                 }
@@ -297,18 +288,9 @@ namespace ImageProcessing
 
                         double coef_k = -0.2;
                         int threshold = (int)(average_color + coef_k * sigma);
-                        int value;
-                        Color sourceColor = image.GetPixel(i, j);
-                        if (sourceColor.R < threshold)
-                        {
-                            value = 0;
-                        }
-                        else
-                        {
-                            value = 255;
-                        }
 
-                        Color resultColor = Color.FromArgb(value, value, value);
+                        Color sourceColor = image.GetPixel(i, j);
+                        Color resultColor = binarization(sourceColor, threshold);
                         resultImage.SetPixel(i, j, resultColor);
                     }
                 }
@@ -323,9 +305,9 @@ namespace ImageProcessing
         }
         private int[] makeGistogram(Bitmap image)
         {
-            int color_num = 255;
+            int color_num = 256;
             int[] gist = new int[color_num];
-            for(int i=0; i< color_num; ++i)
+            for(int i=0; i < color_num; ++i)
             {
                 gist[i] = 0;
             }
@@ -345,41 +327,42 @@ namespace ImageProcessing
             if (image != null)
             {
                 int[] gist = makeGistogram(image);
-                int sum = 0;
-                int color_num = 255;
-                for (int i = 0; i < color_num; ++i)
-                {
-                    sum += gist[i];
-                }
-
+                int sum = image.Width * image.Height;
+                int color_num = 256;
+                
                 float five_per = sum / 100f * 5f;
-                float value = 0;
-                int index = 0;
-                while(value < five_per)
+                float value = five_per;
+                for (int index = 0; value > 0; ++index)
                 {
-                    value += gist[index];
-                    ++index;
-                }
-                if(gist[index] > value)
+                    value -= gist[index];
+                    if(value >= 0)
+                    {
+                        gist[index] = 0;
+                    }
+                    else 
+                    {
+                        gist[index] = (int)(-value);
+                    }
+                }                
+
+                value = five_per;
+                for (int index = color_num - 1; value > 0; --index)
                 {
-                    gist[index] -= (int)value;
+                    value -= gist[index];
+                    if (value >= 0)
+                    {
+                        gist[index] = 0;
+                    }
+                    else
+                    {
+                        gist[index] = (int)(-value);
+                    }
                 }
 
-                index = color_num - 1;
-                while (value < five_per)
-                {
-                    value += gist[index];
-                    --index;
-                }
-                if (gist[index] > value)
-                {
-                    gist[index] -= (int)value;
-                }
-
-                int sum_h = 0;
+                int h = 0;
                 for(int i=0; i<color_num; ++i)
                 {
-                    sum_h += i;
+                    h += gist[i];
                 }
 
                 int threshold = 0;
@@ -387,24 +370,16 @@ namespace ImageProcessing
                 {
                     threshold += gist[i] * i;
                 }
-                threshold /= sum_h;
-                int val;
-                int w = image.Width, h = image.Height;
-                Bitmap resultImage = new Bitmap(w, h);
-                for (int i = 0; i < w; i++)
+                threshold /= h;
+
+                int width = image.Width, height = image.Height;
+                Bitmap resultImage = new Bitmap(width, height);
+                for (int i = 0; i < width; i++)
                 {
-                    for (int j = 0; j < h; j++)
+                    for (int j = 0; j < height; j++)
                     {
                         Color sourceColor = image.GetPixel(i, j);
-                        if (sourceColor.R < threshold)
-                        {
-                            val = 0;
-                        }
-                        else
-                        {
-                            val = 255;
-                        }
-                        Color resultColor = Color.FromArgb(val, val, val);
+                        Color resultColor = binarization(sourceColor, threshold);
                         resultImage.SetPixel(i, j, resultColor);
                     }
                 }
@@ -416,6 +391,19 @@ namespace ImageProcessing
             {
                 MessageBox.Show("Нет файла для изменения. Для начала откройте файл.", "Ошибка");
             }
+        }
+        private Color binarization(Color sourceColor, int threshold)
+        {
+            int val;
+            if (sourceColor.R < threshold)
+            {
+                val = 0;
+            }
+            else
+            {
+                val = 255;
+            }
+            return Color.FromArgb(val, val, val);
         }
         private void полутонаToolStripMenuItem_Click(object sender, EventArgs e)
         {
