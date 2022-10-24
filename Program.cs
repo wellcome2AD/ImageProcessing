@@ -53,6 +53,7 @@ namespace ImageProcessing
             this.устранениеШумаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.медианныйToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.alfatrimmedMeanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -117,7 +118,7 @@ namespace ImageProcessing
             this.точечныеToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.полутонаToolStripMenuItem});
             this.точечныеToolStripMenuItem.Name = "точечныеToolStripMenuItem";
-            this.точечныеToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.точечныеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.точечныеToolStripMenuItem.Text = "Точечные";
             // 
             // полутонаToolStripMenuItem
@@ -132,7 +133,7 @@ namespace ImageProcessing
             this.матричныеToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.бинаризацияПоМетодуНиблэкаToolStripMenuItem});
             this.матричныеToolStripMenuItem.Name = "матричныеToolStripMenuItem";
-            this.матричныеToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.матричныеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.матричныеToolStripMenuItem.Text = "Матричные";
             this.матричныеToolStripMenuItem.Click += new System.EventHandler(this.бинаризацияПоМетодуНиблэкаToolStripMenuItem_Click);
             // 
@@ -148,7 +149,7 @@ namespace ImageProcessing
             this.глобальныеToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.бинаризацияПоГистограммеToolStripMenuItem});
             this.глобальныеToolStripMenuItem.Name = "глобальныеToolStripMenuItem";
-            this.глобальныеToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.глобальныеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.глобальныеToolStripMenuItem.Text = "Глобальные";
             // 
             // бинаризацияПоГистограммеToolStripMenuItem
@@ -164,35 +165,36 @@ namespace ImageProcessing
             this.saltAndPepperToolStripMenuItem,
             this.rayleighNoiseToolStripMenuItem});
             this.зашумлениеToolStripMenuItem.Name = "зашумлениеToolStripMenuItem";
-            this.зашумлениеToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.зашумлениеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.зашумлениеToolStripMenuItem.Text = "Зашумление";
             // 
             // saltAndPepperToolStripMenuItem
             // 
             this.saltAndPepperToolStripMenuItem.Name = "saltAndPepperToolStripMenuItem";
-            this.saltAndPepperToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.saltAndPepperToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saltAndPepperToolStripMenuItem.Text = "Salt and pepper";
             this.saltAndPepperToolStripMenuItem.Click += new System.EventHandler(this.saltAndPepperToolStripMenuItem_Click);
             // 
             // rayleighNoiseToolStripMenuItem
             // 
             this.rayleighNoiseToolStripMenuItem.Name = "rayleighNoiseToolStripMenuItem";
-            this.rayleighNoiseToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.rayleighNoiseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.rayleighNoiseToolStripMenuItem.Text = "Rayleigh noise";
             this.rayleighNoiseToolStripMenuItem.Click += new System.EventHandler(this.rayleighNoiseToolStripMenuItem_Click);
             // 
             // устранениеШумаToolStripMenuItem
             // 
             this.устранениеШумаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.медианныйToolStripMenuItem});
+            this.медианныйToolStripMenuItem,
+            this.alfatrimmedMeanToolStripMenuItem});
             this.устранениеШумаToolStripMenuItem.Name = "устранениеШумаToolStripMenuItem";
-            this.устранениеШумаToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.устранениеШумаToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.устранениеШумаToolStripMenuItem.Text = "Устранение шума";
             // 
             // медианныйToolStripMenuItem
             // 
             this.медианныйToolStripMenuItem.Name = "медианныйToolStripMenuItem";
-            this.медианныйToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.медианныйToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.медианныйToolStripMenuItem.Text = "Медианный";
             this.медианныйToolStripMenuItem.Click += new System.EventHandler(this.медианныйToolStripMenuItem_Click);
             // 
@@ -200,6 +202,13 @@ namespace ImageProcessing
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // alfatrimmedMeanToolStripMenuItem
+            // 
+            this.alfatrimmedMeanToolStripMenuItem.Name = "alfatrimmedMeanToolStripMenuItem";
+            this.alfatrimmedMeanToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.alfatrimmedMeanToolStripMenuItem.Text = "Alfa-trimmed mean";
+            this.alfatrimmedMeanToolStripMenuItem.Click += new System.EventHandler(this.alfatrimmedMeanToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -239,6 +248,7 @@ namespace ImageProcessing
         private ToolStripMenuItem rayleighNoiseToolStripMenuItem;
         private ToolStripMenuItem устранениеШумаToolStripMenuItem;
         private ToolStripMenuItem медианныйToolStripMenuItem;
+        private ToolStripMenuItem alfatrimmedMeanToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
 
         private void Form1_Load(object sender, EventArgs e)
@@ -311,7 +321,7 @@ namespace ImageProcessing
                 MessageBox.Show("Нет файла для изменения. Для начала откройте файл.", "Ошибка");
             }
         }
-        private float[] computeProb()
+        private float[] ComputeProb()
         {
             float[] rayleigh = new float[256];
             float sum = 0f;
@@ -372,7 +382,7 @@ namespace ImageProcessing
             if (image != null)
             {
                 int size = image.Width * image.Height;
-                float[] rayleigh = computeProb();
+                float[] rayleigh = ComputeProb();
                 var noise = ComputeNoise(rayleigh, size);
                 var resultImage = new Bitmap(image);
 
@@ -428,6 +438,66 @@ namespace ImageProcessing
                 MessageBox.Show("Нет файла для изменения. Для начала откройте файл.", "Ошибка");
             }
         }
+        private static List<Color> Slice(List<Color> list, int start_index, int element_count)
+        {
+            List<Color> slice_list = list.Skip(start_index).Take(element_count).ToList();
+            return slice_list;
+        }
+        private Color MeanColor(List<Color> list)
+        {
+            float mean_Rvalue = .0f;
+            float mean_Gvalue = .0f;
+            float mean_Bvalue = .0f;
+            int element_count = list.Count;
+
+            foreach (var element in list)
+            {
+                mean_Rvalue += element.R;
+                mean_Gvalue += element.G;
+                mean_Bvalue += element.B;
+            }
+            mean_Rvalue /= element_count;
+            mean_Gvalue /= element_count;
+            mean_Bvalue /= element_count;
+
+            return Color.FromArgb((int)mean_Rvalue, (int)mean_Gvalue, (int)mean_Bvalue);
+        }
+        private void alfatrimmedMeanToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (image != null)
+            {
+                int w = image.Width, h = image.Height;
+                Bitmap resultImage = new Bitmap(w, h);
+                int size = 3;
+                for (int i = size / 2; i < (w - size / 2); i++)
+                {
+                    for (int j = size / 2; j < (h - size / 2); j++)
+                    {
+                        List<Color> pixels_inside_window = new List<Color>();
+                        for (int y = -size / 2; y <= size / 2; y++)
+                        {
+                            for (int x = -size / 2; x <= size / 2; x++)
+                            {
+                                pixels_inside_window.Add(image.GetPixel(i + x, j + y));
+                            }
+                        }
+
+                        pixels_inside_window.Sort((color1, color2) => color1.ToArgb() - color2.ToArgb());
+                        int trimmed_count = size;
+                        List<Color> slice_list = Slice(pixels_inside_window, trimmed_count, size * size - 2 * trimmed_count);
+                        Color mean_color = MeanColor(slice_list);
+                        resultImage.SetPixel(i, j, mean_color);
+                    }
+                }
+
+                pictureBox1.Image = resultImage;
+                image = resultImage;
+            }
+            else
+            {
+                MessageBox.Show("Нет файла для изменения. Для начала откройте файл.", "Ошибка");
+            }
+        }
         private void бинаризацияToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (image != null)
@@ -440,7 +510,7 @@ namespace ImageProcessing
                     for (int j = 0; j < h; j++)
                     {
                         Color sourceColor = image.GetPixel(i, j);
-                        Color resultColor = binarization(sourceColor, threshold);
+                        Color resultColor = Binarization(sourceColor, threshold);
                         resultImage.SetPixel(i, j, resultColor);
                     }
                 }
@@ -498,7 +568,7 @@ namespace ImageProcessing
                         int threshold = (int)(average_color + coef_k * sigma);
 
                         Color sourceColor = image.GetPixel(i, j);
-                        Color resultColor = binarization(sourceColor, threshold);
+                        Color resultColor = Binarization(sourceColor, threshold);
                         resultImage.SetPixel(i, j, resultColor);
                     }
                 }
@@ -511,7 +581,7 @@ namespace ImageProcessing
                 MessageBox.Show("Нет файла для изменения. Для начала откройте файл.", "Ошибка");
             }
         }
-        private int[] makeGistogram(Bitmap image)
+        private int[] MakeGistogram(Bitmap image)
         {
             int color_num = 256;
             int[] gist = new int[color_num];
@@ -534,7 +604,7 @@ namespace ImageProcessing
         {
             if (image != null)
             {
-                int[] gist = makeGistogram(image);
+                int[] gist = MakeGistogram(image);
                 int sum = image.Width * image.Height;
                 int color_num = 256;
                 
@@ -587,7 +657,7 @@ namespace ImageProcessing
                     for (int j = 0; j < height; j++)
                     {
                         Color sourceColor = image.GetPixel(i, j);
-                        Color resultColor = binarization(sourceColor, threshold);
+                        Color resultColor = Binarization(sourceColor, threshold);
                         resultImage.SetPixel(i, j, resultColor);
                     }
                 }
@@ -600,7 +670,7 @@ namespace ImageProcessing
                 MessageBox.Show("Нет файла для изменения. Для начала откройте файл.", "Ошибка");
             }
         }
-        private Color binarization(Color sourceColor, int threshold)
+        private Color Binarization(Color sourceColor, int threshold)
         {
             int val;
             if (sourceColor.R < threshold)
@@ -640,7 +710,7 @@ namespace ImageProcessing
                 MessageBox.Show("Нет файла для изменения. Для начала откройте файл.", "Ошибка");
             }
         }
-        private int[] calculateCoefficient(Bitmap sourceImage)
+        private int[] CalculateCoefficient(Bitmap sourceImage)
         {
             int Rmin = 255, Rmax = 0, Gmin = 255, Gmax = 0, Bmin = 255, Bmax = 0;
             int w = sourceImage.Width, h = sourceImage.Height;
@@ -665,7 +735,7 @@ namespace ImageProcessing
         {
             if (image != null)
             {
-                int[] brightnesses = calculateCoefficient(image);
+                int[] brightnesses = CalculateCoefficient(image);
                 int Rmin = brightnesses[0];
                 int Rmax = brightnesses[1];
                 int Gmin = brightnesses[2];
