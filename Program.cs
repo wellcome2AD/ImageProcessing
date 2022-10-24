@@ -243,7 +243,6 @@ namespace ImageProcessing
                 pictureBox1.Image = image;
                 pictureBox1.Refresh();
             }
-            perfect_image = new Bitmap(image);
         }
         private static int Clamp(int value, int min, int max)
         {
@@ -471,8 +470,14 @@ namespace ImageProcessing
         }
         private void ssimMToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (perfect_image != null)
+            if (image != null)
             {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = "Image files | *.png; *.jpg; *.bmp | All Files (*.*) | *.*";
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    perfect_image = new Bitmap(dialog.FileName);
+                }
                 float current_SSIM = ComputeCurrentSSIM();
                 MessageBox.Show("SSIM = " + current_SSIM.ToString());
             }
@@ -483,8 +488,14 @@ namespace ImageProcessing
         }
         private void psnrToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (perfect_image != null)
+            if (image != null)
             {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = "Image files | *.png; *.jpg; *.bmp | All Files (*.*) | *.*";
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    perfect_image = new Bitmap(dialog.FileName);
+                }
                 float current_PSNR = ComputeCurrentPSNR();
                 MessageBox.Show("PSNR = " + current_PSNR.ToString());
             }
@@ -525,12 +536,13 @@ namespace ImageProcessing
             {
                 for (int j = 0; j < h; j++)
                 {
-                    sumR += (float)Math.Pow(perfect_image.GetPixel(i, j).R - image.GetPixel(i, j).R, 2);
-                    sumG += (float)Math.Pow(perfect_image.GetPixel(i, j).G - image.GetPixel(i, j).G, 2);
-                    sumB += (float)Math.Pow(perfect_image.GetPixel(i, j).B - image.GetPixel(i, j).B, 2);
+                    sumR += (float)Math.Pow((int)perfect_image.GetPixel(i, j).R - (int)image.GetPixel(i, j).R, 2);
+                    sumG += (float)Math.Pow((int)perfect_image.GetPixel(i, j).G - (int)image.GetPixel(i, j).G, 2);
+                    sumB += (float)Math.Pow((int)perfect_image.GetPixel(i, j).B - (int)image.GetPixel(i, j).B, 2);
                 }
             }
-            return (sumR + sumG + sumB) / (float)Math.Pow((w * h), 3);
+            var res = (sumR + sumG + sumB) / (w * h) / 3;
+            return res;
         }
         private static float ComputeMean(Bitmap image)
         {
