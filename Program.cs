@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace ImageProcessing
@@ -310,35 +311,83 @@ namespace ImageProcessing
                 MessageBox.Show("Нет файла для изменения. Для начала откройте файл.", "Ошибка");
             }
         }
+        private float[] computeProb()
+        {
+            float[] rayleigh = new float[256];
+            float sum = 0f;
+            double a = 0; //перевод распределения вдоль горизонтальной оси
+            double b = 0.4;
+            int size = image.Width * image.Height;
+            for (int i = 0; i < 256; ++i)
+            {
+                double step = (float)i * 0.01;
+                if (step >= a)
+                {
+                    rayleigh[i] = (float)((2 / b) * (step - a) * Math.Exp(-Math.Pow(step - a, 2) / b));
+                }
+                else
+                {
+                    rayleigh[i] = 0;
+                }
+                sum += rayleigh[i];
+            }
+
+            for (int i = 0; i < 256; i++)
+            {
+                rayleigh[i] /= sum;
+                rayleigh[i] *= size * 0.12f;
+                rayleigh[i] = (int)Math.Floor(rayleigh[i]);
+            }
+
+            return rayleigh;
+        }
+        private byte[] ComputeNoise(float[] uniform, int size)
+        {
+            Random random = new Random();
+            int count = 0;
+            byte[] noise = new byte[size];
+            for (int i = 0; i < 256; i++)
+            {
+                for (int j = 0; j < (int)uniform[i]; j++)
+                {
+                    noise[j + count] = (byte)i;
+                }
+                count += (int)uniform[i];
+            }
+
+            for (int i = 0; i < size - count; i++)
+            {
+                noise[count + i] = 0;
+            }
+
+            noise = noise.OrderBy(x => random.Next()).ToArray();
+            return noise;
+        }
+        private byte GetBrightness(Color color)
+        {
+            return (byte)(.299 * color.R + .587 * color.G + .114 * color.B);
+        }
         private void rayleighNoiseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (image != null)
             {
-                float a = 128, b = 10;
-                int w = image.Width, h = image.Height;
-                Bitmap resultImage = new Bitmap(w, h);
-                Random rnd = new Random();
-                for (int i = 0; i < w; i++)
+                int size = image.Width * image.Height;
+                float[] rayleigh = computeProb();
+                var noise = ComputeNoise(rayleigh, size);
+                var resultImage = new Bitmap(image);
+
+                for (int y = 0; y < image.Height; y++)
                 {
-                    for (int j = 0; j < h; j++)
+                    for (int x = 0; x < image.Width; x++)
                     {
-                        Color sourceColor = image.GetPixel(i, j);
-                        Color resultColor;
-                        int z = sourceColor.R;
-                        if (z >= a)
-                        {
-                            double degree = -(z - a) * (z - a) / b;
-                            float res = (float)(2 / b * (z - a) * Math.Pow(Math.E, degree));
-                            int for_color = Clamp((int)res, 0, 255);
-                            resultColor = Color.FromArgb(for_color, for_color, for_color);
-                        }
-                        else
-                        {
-                            resultColor = Color.FromArgb(0, 0, 0);
-                        }
-                        resultImage.SetPixel(i, j, resultColor);
+                        Color color = image.GetPixel(x, y);
+                        var newValue = Clamp(GetBrightness(color) +
+                            noise[image.Width * y + x], 0, 255);
+
+                        resultImage.SetPixel(x, y, Color.FromArgb(newValue, newValue, newValue));
+
                     }
-                }
+                }               
 
                 pictureBox1.Image = resultImage;
                 image = resultImage;
