@@ -50,9 +50,9 @@ namespace ImageProcessing
             this.зашумлениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saltAndPepperToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rayleighNoiseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.устранениеШумаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.медианныйToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -89,14 +89,14 @@ namespace ImageProcessing
             // открытьToolStripMenuItem
             // 
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.открытьToolStripMenuItem.Text = "Открыть";
             this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
             // 
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
             // 
@@ -117,7 +117,7 @@ namespace ImageProcessing
             this.точечныеToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.полутонаToolStripMenuItem});
             this.точечныеToolStripMenuItem.Name = "точечныеToolStripMenuItem";
-            this.точечныеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.точечныеToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.точечныеToolStripMenuItem.Text = "Точечные";
             // 
             // полутонаToolStripMenuItem
@@ -132,7 +132,7 @@ namespace ImageProcessing
             this.матричныеToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.бинаризацияПоМетодуНиблэкаToolStripMenuItem});
             this.матричныеToolStripMenuItem.Name = "матричныеToolStripMenuItem";
-            this.матричныеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.матричныеToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.матричныеToolStripMenuItem.Text = "Матричные";
             this.матричныеToolStripMenuItem.Click += new System.EventHandler(this.бинаризацияПоМетодуНиблэкаToolStripMenuItem_Click);
             // 
@@ -148,7 +148,7 @@ namespace ImageProcessing
             this.глобальныеToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.бинаризацияПоГистограммеToolStripMenuItem});
             this.глобальныеToolStripMenuItem.Name = "глобальныеToolStripMenuItem";
-            this.глобальныеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.глобальныеToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.глобальныеToolStripMenuItem.Text = "Глобальные";
             // 
             // бинаризацияПоГистограммеToolStripMenuItem
@@ -164,7 +164,7 @@ namespace ImageProcessing
             this.saltAndPepperToolStripMenuItem,
             this.rayleighNoiseToolStripMenuItem});
             this.зашумлениеToolStripMenuItem.Name = "зашумлениеToolStripMenuItem";
-            this.зашумлениеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.зашумлениеToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.зашумлениеToolStripMenuItem.Text = "Зашумление";
             // 
             // saltAndPepperToolStripMenuItem
@@ -181,25 +181,25 @@ namespace ImageProcessing
             this.rayleighNoiseToolStripMenuItem.Text = "Rayleigh noise";
             this.rayleighNoiseToolStripMenuItem.Click += new System.EventHandler(this.rayleighNoiseToolStripMenuItem_Click);
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
             // устранениеШумаToolStripMenuItem
             // 
             this.устранениеШумаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.медианныйToolStripMenuItem});
             this.устранениеШумаToolStripMenuItem.Name = "устранениеШумаToolStripMenuItem";
-            this.устранениеШумаToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.устранениеШумаToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.устранениеШумаToolStripMenuItem.Text = "Устранение шума";
             // 
             // медианныйToolStripMenuItem
             // 
             this.медианныйToolStripMenuItem.Name = "медианныйToolStripMenuItem";
-            this.медианныйToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.медианныйToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.медианныйToolStripMenuItem.Text = "Медианный";
             this.медианныйToolStripMenuItem.Click += new System.EventHandler(this.медианныйToolStripMenuItem_Click);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
             // Form1
             // 
@@ -244,7 +244,7 @@ namespace ImageProcessing
         private void Form1_Load(object sender, EventArgs e)
         {
 
-        }        
+        }
     }
     public partial class Form1 : Form
     {
@@ -381,11 +381,9 @@ namespace ImageProcessing
                     for (int x = 0; x < image.Width; x++)
                     {
                         Color color = image.GetPixel(x, y);
-                        var newValue = Clamp(GetBrightness(color) +
-                            noise[image.Width * y + x], 0, 255);
-
-                        resultImage.SetPixel(x, y, Color.FromArgb(newValue, newValue, newValue));
-
+                        resultImage.SetPixel(x, y, Color.FromArgb(Clamp(color.R + noise[image.Width * y + x], 0, 255),
+                                                                  Clamp(color.G + noise[image.Width * y + x], 0, 255),
+                                                                  Clamp(color.B + noise[image.Width * y + x], 0, 255)));
                     }
                 }               
 
