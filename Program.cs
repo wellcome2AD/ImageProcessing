@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -49,6 +50,8 @@ namespace ImageProcessing
             this.saltAndPepperToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rayleighNoiseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.устранениеШумаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.медианныйToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -102,7 +105,8 @@ namespace ImageProcessing
             this.точечныеToolStripMenuItem,
             this.матричныеToolStripMenuItem,
             this.глобальныеToolStripMenuItem,
-            this.зашумлениеToolStripMenuItem});
+            this.зашумлениеToolStripMenuItem,
+            this.устранениеШумаToolStripMenuItem});
             this.фильтрыToolStripMenuItem.Name = "фильтрыToolStripMenuItem";
             this.фильтрыToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.фильтрыToolStripMenuItem.Text = "Фильтры";
@@ -165,14 +169,14 @@ namespace ImageProcessing
             // saltAndPepperToolStripMenuItem
             // 
             this.saltAndPepperToolStripMenuItem.Name = "saltAndPepperToolStripMenuItem";
-            this.saltAndPepperToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saltAndPepperToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.saltAndPepperToolStripMenuItem.Text = "Salt and pepper";
             this.saltAndPepperToolStripMenuItem.Click += new System.EventHandler(this.saltAndPepperToolStripMenuItem_Click);
             // 
             // rayleighNoiseToolStripMenuItem
             // 
             this.rayleighNoiseToolStripMenuItem.Name = "rayleighNoiseToolStripMenuItem";
-            this.rayleighNoiseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.rayleighNoiseToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.rayleighNoiseToolStripMenuItem.Text = "Rayleigh noise";
             this.rayleighNoiseToolStripMenuItem.Click += new System.EventHandler(this.rayleighNoiseToolStripMenuItem_Click);
             // 
@@ -180,6 +184,21 @@ namespace ImageProcessing
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // устранениеШумаToolStripMenuItem
+            // 
+            this.устранениеШумаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.медианныйToolStripMenuItem});
+            this.устранениеШумаToolStripMenuItem.Name = "устранениеШумаToolStripMenuItem";
+            this.устранениеШумаToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.устранениеШумаToolStripMenuItem.Text = "Устранение шума";
+            // 
+            // медианныйToolStripMenuItem
+            // 
+            this.медианныйToolStripMenuItem.Name = "медианныйToolStripMenuItem";
+            this.медианныйToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.медианныйToolStripMenuItem.Text = "Медианный";
+            this.медианныйToolStripMenuItem.Click += new System.EventHandler(this.медианныйToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -217,6 +236,8 @@ namespace ImageProcessing
         private ToolStripMenuItem зашумлениеToolStripMenuItem;
         private ToolStripMenuItem saltAndPepperToolStripMenuItem;
         private ToolStripMenuItem rayleighNoiseToolStripMenuItem;
+        private ToolStripMenuItem устранениеШумаToolStripMenuItem;
+        private ToolStripMenuItem медианныйToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
 
         private void Form1_Load(object sender, EventArgs e)
@@ -316,6 +337,39 @@ namespace ImageProcessing
                             resultColor = Color.FromArgb(0, 0, 0);
                         }
                         resultImage.SetPixel(i, j, resultColor);
+                    }
+                }
+
+                pictureBox1.Image = resultImage;
+                image = resultImage;
+            }
+            else
+            {
+                MessageBox.Show("Нет файла для изменения. Для начала откройте файл.", "Ошибка");
+            }
+        }
+        private void медианныйToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (image != null)
+            {
+                int w = image.Width, h = image.Height;
+                Bitmap resultImage = new Bitmap(w, h);
+                int size = 3;
+                for (int i = size / 2; i < (w - size / 2); i++)
+                {
+                    for (int j = size / 2; j < (h - size / 2); j++)
+                    {
+                        List<Color> pixels_inside_window = new List<Color>();
+                        for (int y = -size / 2; y <= size / 2; y++)
+                        {
+                            for (int x = -size / 2; x <= size / 2; x++)
+                            {
+                                pixels_inside_window.Add(image.GetPixel(i + x, j + y));
+                            }
+                        }
+
+                        pixels_inside_window.Sort((color1, color2) => color1.ToArgb() - color2.ToArgb());
+                        resultImage.SetPixel(i, j, pixels_inside_window[4]);
                     }
                 }
 
