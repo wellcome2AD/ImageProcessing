@@ -52,8 +52,11 @@ namespace ImageProcessing
             this.rayleighNoiseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.устранениеШумаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.медианныйToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.alfatrimmedMeanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сравнениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sSIMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.peakSignaltonoiseRatioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -71,7 +74,8 @@ namespace ImageProcessing
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.файлToolStripMenuItem,
-            this.фильтрыToolStripMenuItem});
+            this.фильтрыToolStripMenuItem,
+            this.сравнениеToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(636, 24);
@@ -90,14 +94,14 @@ namespace ImageProcessing
             // открытьToolStripMenuItem
             // 
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.открытьToolStripMenuItem.Text = "Открыть";
             this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
             // 
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
             // 
@@ -118,7 +122,7 @@ namespace ImageProcessing
             this.точечныеToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.полутонаToolStripMenuItem});
             this.точечныеToolStripMenuItem.Name = "точечныеToolStripMenuItem";
-            this.точечныеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.точечныеToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.точечныеToolStripMenuItem.Text = "Точечные";
             // 
             // полутонаToolStripMenuItem
@@ -133,7 +137,7 @@ namespace ImageProcessing
             this.матричныеToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.бинаризацияПоМетодуНиблэкаToolStripMenuItem});
             this.матричныеToolStripMenuItem.Name = "матричныеToolStripMenuItem";
-            this.матричныеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.матричныеToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.матричныеToolStripMenuItem.Text = "Матричные";
             this.матричныеToolStripMenuItem.Click += new System.EventHandler(this.бинаризацияПоМетодуНиблэкаToolStripMenuItem_Click);
             // 
@@ -149,7 +153,7 @@ namespace ImageProcessing
             this.глобальныеToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.бинаризацияПоГистограммеToolStripMenuItem});
             this.глобальныеToolStripMenuItem.Name = "глобальныеToolStripMenuItem";
-            this.глобальныеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.глобальныеToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.глобальныеToolStripMenuItem.Text = "Глобальные";
             // 
             // бинаризацияПоГистограммеToolStripMenuItem
@@ -165,20 +169,20 @@ namespace ImageProcessing
             this.saltAndPepperToolStripMenuItem,
             this.rayleighNoiseToolStripMenuItem});
             this.зашумлениеToolStripMenuItem.Name = "зашумлениеToolStripMenuItem";
-            this.зашумлениеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.зашумлениеToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.зашумлениеToolStripMenuItem.Text = "Зашумление";
             // 
             // saltAndPepperToolStripMenuItem
             // 
             this.saltAndPepperToolStripMenuItem.Name = "saltAndPepperToolStripMenuItem";
-            this.saltAndPepperToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saltAndPepperToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.saltAndPepperToolStripMenuItem.Text = "Salt and pepper";
             this.saltAndPepperToolStripMenuItem.Click += new System.EventHandler(this.saltAndPepperToolStripMenuItem_Click);
             // 
             // rayleighNoiseToolStripMenuItem
             // 
             this.rayleighNoiseToolStripMenuItem.Name = "rayleighNoiseToolStripMenuItem";
-            this.rayleighNoiseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.rayleighNoiseToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.rayleighNoiseToolStripMenuItem.Text = "Rayleigh noise";
             this.rayleighNoiseToolStripMenuItem.Click += new System.EventHandler(this.rayleighNoiseToolStripMenuItem_Click);
             // 
@@ -188,27 +192,49 @@ namespace ImageProcessing
             this.медианныйToolStripMenuItem,
             this.alfatrimmedMeanToolStripMenuItem});
             this.устранениеШумаToolStripMenuItem.Name = "устранениеШумаToolStripMenuItem";
-            this.устранениеШумаToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.устранениеШумаToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.устранениеШумаToolStripMenuItem.Text = "Устранение шума";
             // 
             // медианныйToolStripMenuItem
             // 
             this.медианныйToolStripMenuItem.Name = "медианныйToolStripMenuItem";
-            this.медианныйToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.медианныйToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.медианныйToolStripMenuItem.Text = "Медианный";
             this.медианныйToolStripMenuItem.Click += new System.EventHandler(this.медианныйToolStripMenuItem_Click);
+            // 
+            // alfatrimmedMeanToolStripMenuItem
+            // 
+            this.alfatrimmedMeanToolStripMenuItem.Name = "alfatrimmedMeanToolStripMenuItem";
+            this.alfatrimmedMeanToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.alfatrimmedMeanToolStripMenuItem.Text = "Alfa-trimmed mean";
+            this.alfatrimmedMeanToolStripMenuItem.Click += new System.EventHandler(this.alfatrimmedMeanToolStripMenuItem_Click);
+            // 
+            // сравнениеToolStripMenuItem
+            // 
+            this.сравнениеToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sSIMToolStripMenuItem,
+            this.peakSignaltonoiseRatioToolStripMenuItem});
+            this.сравнениеToolStripMenuItem.Name = "сравнениеToolStripMenuItem";
+            this.сравнениеToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
+            this.сравнениеToolStripMenuItem.Text = "Сравнение";
+            // 
+            // sSIMToolStripMenuItem
+            // 
+            this.sSIMToolStripMenuItem.Name = "sSIMToolStripMenuItem";
+            this.sSIMToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
+            this.sSIMToolStripMenuItem.Text = "Structural Similarity Index Measure";
+            this.sSIMToolStripMenuItem.Click += new System.EventHandler(this.ssimMToolStripMenuItem_Click);
+            // 
+            // peakSignaltonoiseRatioToolStripMenuItem
+            // 
+            this.peakSignaltonoiseRatioToolStripMenuItem.Name = "peakSignaltonoiseRatioToolStripMenuItem";
+            this.peakSignaltonoiseRatioToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
+            this.peakSignaltonoiseRatioToolStripMenuItem.Text = "Peak signal-to-noise ratio";
             // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // alfatrimmedMeanToolStripMenuItem
-            // 
-            this.alfatrimmedMeanToolStripMenuItem.Name = "alfatrimmedMeanToolStripMenuItem";
-            this.alfatrimmedMeanToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.alfatrimmedMeanToolStripMenuItem.Text = "Alfa-trimmed mean";
-            this.alfatrimmedMeanToolStripMenuItem.Click += new System.EventHandler(this.alfatrimmedMeanToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -249,6 +275,9 @@ namespace ImageProcessing
         private ToolStripMenuItem устранениеШумаToolStripMenuItem;
         private ToolStripMenuItem медианныйToolStripMenuItem;
         private ToolStripMenuItem alfatrimmedMeanToolStripMenuItem;
+        private ToolStripMenuItem сравнениеToolStripMenuItem;
+        private ToolStripMenuItem sSIMToolStripMenuItem;
+        private ToolStripMenuItem peakSignaltonoiseRatioToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
 
         private void Form1_Load(object sender, EventArgs e)
@@ -259,6 +288,8 @@ namespace ImageProcessing
     public partial class Form1 : Form
     {
         Bitmap image;
+        Bitmap perfect_image;
+        float current_SSIM;
         public Form1()
         {
             InitializeComponent();
@@ -273,6 +304,7 @@ namespace ImageProcessing
                 pictureBox1.Image = image;
                 pictureBox1.Refresh();
             }
+            perfect_image = new Bitmap(image);
         }
         private static int Clamp(int value, int min, int max)
         {
@@ -373,7 +405,7 @@ namespace ImageProcessing
             noise = noise.OrderBy(x => random.Next()).ToArray();
             return noise;
         }
-        private byte GetBrightness(Color color)
+        private static byte GetBrightness(Color color)
         {
             return (byte)(.299 * color.R + .587 * color.G + .114 * color.B);
         }
@@ -497,6 +529,75 @@ namespace ImageProcessing
             {
                 MessageBox.Show("Нет файла для изменения. Для начала откройте файл.", "Ошибка");
             }
+        }
+        private void ssimMToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (perfect_image != null)
+            {
+                ExecuteCurrentSSIM();
+                MessageBox.Show("SSIM = " + current_SSIM.ToString());
+            }
+            else
+            {
+                MessageBox.Show("Нет файла для изменения. Для начала откройте файл.", "Ошибка");
+            }
+        }
+        private void ExecuteCurrentSSIM()
+        {
+            float L = (float)(Math.Pow(2, 8) - 1f);
+            float k1 = 0.01f, k2 = 0.03f;
+            float c1 = (float)Math.Pow(k1 * L, 2);
+            float c2 = (float)Math.Pow(k2 * L, 2);
+
+
+            float meanX = ComputeMean(perfect_image), meanY = ComputeMean(image); // nu(x), nu(y)
+            float disX = ComputeDis(perfect_image, meanX), disY = ComputeDis(image, meanY); // sigma(x), sigma(y)
+            float covXY = ComputeCov(perfect_image, meanX, image, meanY); // sigma(x,y)
+                        
+            current_SSIM = (2 * meanX * meanY + c1) * (2 * covXY + c2) / (float)(Math.Pow(meanX, 2) + Math.Pow(meanY, 2) + c1)
+                / (float)(Math.Pow(disX, 2) + Math.Pow(disY, 2) + c2);
+        }
+        private static float ComputeMean(Bitmap image)
+        {
+            float sum = 0f;
+            int w = image.Width, h = image.Height;
+            for (int i = 0; i < w; i++)
+            {
+                for (int j = 0; j < h; j++)
+                {
+                    sum += GetBrightness(image.GetPixel(i, j));
+                }
+            }            
+            return (sum / (float)(w * h));
+        }
+
+        private static float ComputeDis(Bitmap image, float mean)
+        {
+            float sum = 0f;
+            int w = image.Width, h = image.Height;
+            for (int i = 0; i < w; i++)
+            {
+                for (int j = 0; j < h; j++)
+                {
+                    sum += (float)Math.Pow(GetBrightness(image.GetPixel(i, j)) - mean, 2);
+                }
+            }
+            return (float)Math.Sqrt(sum / ((float)(w * h) - 1f));
+        }
+
+        private static float ComputeCov(Bitmap im1, float m1, Bitmap im2, float m2)
+        {
+            float sum = 0f;
+            int w = im1.Width, h = im1.Height;
+            for (int i = 0; i < w; i++)
+            {
+                for (int j = 0; j < h; j++)
+                {
+                    sum += (GetBrightness(im1.GetPixel(i, j)) - m1) *
+                        (GetBrightness(im2.GetPixel(i, j)) - m2);
+                }
+            }
+            return (sum / ((float)(w * h) - 1f));
         }
         private void бинаризацияToolStripMenuItem_Click(object sender, EventArgs e)
         {
