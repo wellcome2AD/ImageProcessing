@@ -229,7 +229,6 @@ namespace ImageProcessing
     {
         Bitmap image;
         Bitmap perfect_image;
-        float current_SSIM;
         public Form1()
         {
             InitializeComponent();
@@ -474,7 +473,7 @@ namespace ImageProcessing
         {
             if (perfect_image != null)
             {
-                ExecuteCurrentSSIM();
+                float current_SSIM = ComputeCurrentSSIM();
                 MessageBox.Show("SSIM = " + current_SSIM.ToString());
             }
             else
@@ -486,15 +485,15 @@ namespace ImageProcessing
         {
             if (perfect_image != null)
             {
-                ExecuteCurrentSSIM();
-                MessageBox.Show("SSIM = " + current_SSIM.ToString());
+                float current_PSNR = ComputeCurrentPSNR();
+                MessageBox.Show("PSNR = " + current_PSNR.ToString());
             }
             else
             {
                 MessageBox.Show("Нет файла для изменения. Для начала откройте файл.", "Ошибка");
             }
         }
-        private void ExecuteCurrentSSIM()
+        private float ComputeCurrentSSIM()
         {
             float L = (float)(Math.Pow(2, 8) - 1f);
             float k1 = 0.01f, k2 = 0.03f;
@@ -505,9 +504,33 @@ namespace ImageProcessing
             float meanX = ComputeMean(perfect_image), meanY = ComputeMean(image); // nu(x), nu(y)
             float disX = ComputeDis(perfect_image, meanX), disY = ComputeDis(image, meanY); // sigma(x), sigma(y)
             float covXY = ComputeCov(perfect_image, meanX, image, meanY); // sigma(x,y)
-                        
-            current_SSIM = (2 * meanX * meanY + c1) * (2 * covXY + c2) / (float)(Math.Pow(meanX, 2) + Math.Pow(meanY, 2) + c1)
+
+            float ssim = (2 * meanX * meanY + c1) * (2 * covXY + c2) / (float)(Math.Pow(meanX, 2) + Math.Pow(meanY, 2) + c1)
                 / (float)(Math.Pow(disX, 2) + Math.Pow(disY, 2) + c2);
+            return ssim;
+        }
+        private float ComputeCurrentPSNR()
+        {
+            float mse = ComputeMSE();
+            float psnr = 20 * (float)Math.Log10(255 / Math.Sqrt(mse));
+            return psnr;
+        }
+        private float ComputeMSE()
+        {
+            float sumR = 0f;
+            float sumG = 0f;
+            float sumB = 0f;
+            int w = image.Width, h = image.Height;
+            for (int i = 0; i < w; i++)
+            {
+                for (int j = 0; j < h; j++)
+                {
+                    sumR += (float)Math.Pow(perfect_image.GetPixel(i, j).R - image.GetPixel(i, j).R, 2);
+                    sumG += (float)Math.Pow(perfect_image.GetPixel(i, j).G - image.GetPixel(i, j).G, 2);
+                    sumB += (float)Math.Pow(perfect_image.GetPixel(i, j).B - image.GetPixel(i, j).B, 2);
+                }
+            }
+            return (sumR + sumG + sumB) / (float)Math.Pow((w * h), 3);
         }
         private static float ComputeMean(Bitmap image)
         {
