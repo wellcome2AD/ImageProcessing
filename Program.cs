@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Syncfusion.XlsIO;
 
 namespace ImageProcessing
 {
@@ -51,6 +53,8 @@ namespace ImageProcessing
             this.sSIMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.peakSignaltonoiseRatioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.showNoiseMapButton = new System.Windows.Forms.Button();
+            this.оттенкиСерогоToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -72,7 +76,7 @@ namespace ImageProcessing
             this.сравнениеToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(636, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(640, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -103,7 +107,8 @@ namespace ImageProcessing
             // 
             this.фильтрыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.зашумлениеToolStripMenuItem,
-            this.устранениеШумаToolStripMenuItem});
+            this.устранениеШумаToolStripMenuItem,
+            this.оттенкиСерогоToolStripMenuItem});
             this.фильтрыToolStripMenuItem.Name = "фильтрыToolStripMenuItem";
             this.фильтрыToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.фильтрыToolStripMenuItem.Text = "Фильтры";
@@ -120,14 +125,14 @@ namespace ImageProcessing
             // saltAndPepperToolStripMenuItem
             // 
             this.saltAndPepperToolStripMenuItem.Name = "saltAndPepperToolStripMenuItem";
-            this.saltAndPepperToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saltAndPepperToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.saltAndPepperToolStripMenuItem.Text = "Salt and pepper";
             this.saltAndPepperToolStripMenuItem.Click += new System.EventHandler(this.saltAndPepperToolStripMenuItem_Click);
             // 
             // rayleighNoiseToolStripMenuItem
             // 
             this.rayleighNoiseToolStripMenuItem.Name = "rayleighNoiseToolStripMenuItem";
-            this.rayleighNoiseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.rayleighNoiseToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.rayleighNoiseToolStripMenuItem.Text = "Rayleigh noise";
             this.rayleighNoiseToolStripMenuItem.Click += new System.EventHandler(this.rayleighNoiseToolStripMenuItem_Click);
             // 
@@ -182,11 +187,30 @@ namespace ImageProcessing
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
+            // showNoiseMapButton
+            // 
+            this.showNoiseMapButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.showNoiseMapButton.Location = new System.Drawing.Point(442, 477);
+            this.showNoiseMapButton.Name = "showNoiseMapButton";
+            this.showNoiseMapButton.Size = new System.Drawing.Size(148, 38);
+            this.showNoiseMapButton.TabIndex = 2;
+            this.showNoiseMapButton.Text = "Show noise map";
+            this.showNoiseMapButton.UseVisualStyleBackColor = true;
+            this.showNoiseMapButton.Click += new System.EventHandler(this.showNoiseMapButtonClick);
+            // 
+            // оттенкиСерогоToolStripMenuItem
+            // 
+            this.оттенкиСерогоToolStripMenuItem.Name = "оттенкиСерогоToolStripMenuItem";
+            this.оттенкиСерогоToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.оттенкиСерогоToolStripMenuItem.Text = "Оттенки серого";
+            this.оттенкиСерогоToolStripMenuItem.Click += new System.EventHandler(this.оттенкиСерогоToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(636, 512);
+            this.ClientSize = new System.Drawing.Size(640, 527);
+            this.Controls.Add(this.showNoiseMapButton);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -218,20 +242,38 @@ namespace ImageProcessing
         private ToolStripMenuItem сравнениеToolStripMenuItem;
         private ToolStripMenuItem sSIMToolStripMenuItem;
         private ToolStripMenuItem peakSignaltonoiseRatioToolStripMenuItem;
+        private Button showNoiseMapButton;
+        private ToolStripMenuItem оттенкиСерогоToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
 
         private void Form1_Load(object sender, EventArgs e)
         {
 
-        }
+        }        
     }
     public partial class Form1 : Form
     {
         Bitmap image;
+        Bitmap noise_pic = null;
         Bitmap perfect_image;
+        bool image_is_shown = false;
         public Form1()
         {
             InitializeComponent();
+        }
+        public void ArrToExcel(double[] arr, string path)
+        {
+            ExcelEngine excelEngine = new ExcelEngine();
+            IApplication application = excelEngine.Excel;
+            application.DefaultVersion = ExcelVersion.Excel2016;
+
+            IWorkbook workbook = application.Workbooks.Create(1);
+            IWorksheet sheet = workbook.Worksheets[0];
+            sheet.ImportArray(arr, 1, 1, false);
+
+            Stream excelStream = File.Create(path);
+            workbook.SaveAs(excelStream);
+            excelStream.Dispose();
         }
         private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -240,6 +282,8 @@ namespace ImageProcessing
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 image = new Bitmap(dialog.FileName);
+                noise_pic = null;
+                image_is_shown = true;
                 pictureBox1.Image = image;
                 pictureBox1.Refresh();
             }
@@ -252,7 +296,7 @@ namespace ImageProcessing
                 return max;
             return value;
         }
-        private void saltAndPepperToolStripMenuItem_Click(object sender, EventArgs e)
+        private void saltAndPepperToolStripMenuItem_Click(object sender, EventArgs e) // 1
         {
             if (image != null)
             {
@@ -340,25 +384,60 @@ namespace ImageProcessing
                 noise[count + i] = 0;
             }
 
-            noise = noise.OrderBy(x => random.Next()).ToArray();
+            noise = noise.OrderBy(x => random.Next()).ToArray();            
             return noise;
         }
         private static byte GetBrightness(Color color)
         {
             return (byte)(.299 * color.R + .587 * color.G + .114 * color.B);
         }
-        private void rayleighNoiseToolStripMenuItem_Click(object sender, EventArgs e)
+        private double[] MakeHistogram(Bitmap image)
+        {
+            int color_num = 256;
+            double[] gist = new double[color_num];
+            for (int i = 0; i < color_num; ++i)
+            {
+                gist[i] = 0;
+            }
+            int w = image.Width, h = image.Height;
+            for (int i = 0; i < w; i++)
+            {
+                for (int j = 0; j < h; j++)
+                {
+                    Color sourceColor = image.GetPixel(i, j);
+                    ++gist[sourceColor.R];
+                }
+            }
+            return gist;
+        }
+        private void rayleighNoiseToolStripMenuItem_Click(object sender, EventArgs e) // 2
         {
             if (image != null)
             {
-                int size = image.Width * image.Height;
+                int w = image.Width, h = image.Height;
+                int size = w * h;
                 float[] rayleigh = ComputeProb();
                 var noise = ComputeNoise(rayleigh, size);
+                int index_count = 0;
+                noise_pic = new Bitmap(w, h);
+                                
+                for (int i = 0; i < w; ++i)
+                {
+                    for (int j = 0; j < h; ++j)
+                    {
+                        noise_pic.SetPixel(i, j, Color.FromArgb(noise[index_count], noise[index_count], noise[index_count]));
+                        ++index_count;
+                    }
+                }
+
+                double[] noise_hist = MakeHistogram(noise_pic);
+                ArrToExcel(noise_hist, "..\\..\\rayleighNoise.xls");
+
                 var resultImage = new Bitmap(image);
 
-                for (int y = 0; y < image.Height; y++)
+                for (int y = 0; y < h; y++)
                 {
-                    for (int x = 0; x < image.Width; x++)
+                    for (int x = 0; x < w; x++)
                     {
                         Color color = image.GetPixel(x, y);
                         resultImage.SetPixel(x, y, Color.FromArgb(Clamp(color.R + noise[image.Width * y + x], 0, 255),
@@ -375,8 +454,21 @@ namespace ImageProcessing
                 MessageBox.Show("Нет файла для изменения. Для начала откройте файл.", "Ошибка");
             }
         }
-        private void медианныйToolStripMenuItem_Click(object sender, EventArgs e)
+        private void showNoiseMapButtonClick(object sender, EventArgs e)
+        {            
+            if(image_is_shown && noise_pic != null)
+            {
+                pictureBox1.Image = noise_pic;
+            }
+            else
+            {
+                pictureBox1.Image = image;
+            }
+            image_is_shown = !image_is_shown;
+        }
+        private void медианныйToolStripMenuItem_Click(object sender, EventArgs e) // 3
         {
+            noise_pic = null;
             if (image != null)
             {
                 int w = image.Width, h = image.Height;
@@ -432,8 +524,9 @@ namespace ImageProcessing
 
             return Color.FromArgb((int)mean_Rvalue, (int)mean_Gvalue, (int)mean_Bvalue);
         }
-        private void alfatrimmedMeanToolStripMenuItem_Click(object sender, EventArgs e)
+        private void alfatrimmedMeanToolStripMenuItem_Click(object sender, EventArgs e) // 4
         {
+            noise_pic = null;
             if (image != null)
             {
                 int w = image.Width, h = image.Height;
@@ -468,7 +561,7 @@ namespace ImageProcessing
                 MessageBox.Show("Нет файла для изменения. Для начала откройте файл.", "Ошибка");
             }
         }
-        private void ssimMToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ssimMToolStripMenuItem_Click(object sender, EventArgs e) // 5
         {
             if (image != null)
             {
@@ -486,7 +579,7 @@ namespace ImageProcessing
                 MessageBox.Show("Нет файла для изменения. Для начала откройте файл.", "Ошибка");
             }
         }
-        private void psnrToolStripMenuItem_Click(object sender, EventArgs e)
+        private void psnrToolStripMenuItem_Click(object sender, EventArgs e) // 6
         {
             if (image != null)
             {
@@ -583,6 +676,33 @@ namespace ImageProcessing
                 }
             }
             return (sum / ((float)(w * h) - 1f));
+        }
+        private void оттенкиСерогоToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (image != null)
+            {
+                int w = image.Width, h = image.Height;
+                Bitmap resultImage = new Bitmap(w, h);
+                for (int i = 0; i < w; i++)
+                {
+                    for (int j = 0; j < h; j++)
+                    {
+                        Color sourceColor = image.GetPixel(i, j);
+                        double Intensity = 0.299 * sourceColor.R + 0.587 * sourceColor.G + 0.114 * sourceColor.B;
+                        Color resultColor = Color.FromArgb(Clamp((int)Intensity, 0, 255),
+                                                           Clamp((int)Intensity, 0, 255),
+                                                           Clamp((int)Intensity, 0, 255));
+                        resultImage.SetPixel(i, j, resultColor);
+                    }
+                }
+
+                pictureBox1.Image = resultImage;
+                image = resultImage;
+            }
+            else
+            {
+                MessageBox.Show("Нет файла для изменения. Для начала откройте файл.", "Ошибка");
+            }
         }
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
